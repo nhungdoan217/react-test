@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import AddNewParticipant from './AddNewParticipant';
 import ParticipantList from './ParticipantList';
+import TableHeader from './TableHeader';
 import Participants from './participants';
 import '../css/table.css';
 
 class Table extends Component 
 {
 	state = {
-		participants: Participants
+		participants: Participants.sort((a, b) => {return a.name > b.name ? 1 : -1})
 	};
 
 	renderParticipantList = () => {
-		return this.state.participants.map((participant, index) => {
+		let sortedParticipants = this.state.participants;
+		return sortedParticipants.map((participant, index) => {
 			return <ParticipantList 
 					participant={participant}
 					changeParticipant={this.changeParticipant}
@@ -35,8 +37,17 @@ class Table extends Component
 		})
 	};
 
-	deleteParticipants = (participant) => {
+	sortParticipants = (direction) => {
+		let sortedParticipants = this.state.sortedParticipants;
+		if (direction === 'asc') {
+			sortedParticipants = this.state.participants.sort((a, b) => {return a.name > b.name ? 1 : -1});	
+		} else {
+			sortedParticipants = this.state.participants.sort((a, b) => {return a.name < b.name ? 1 : -1});
+		}
 
+		this.setState({
+			participants: sortedParticipants
+		})
 	}
 
 	render() {
@@ -48,6 +59,7 @@ class Table extends Component
 				</nav>
 				<h1>List of participants</h1>
 				<AddNewParticipant />
+				<TableHeader sortParticipants={this.sortParticipants}/>
 				{this.renderParticipantList()}
 			</React.Fragment>
 		)

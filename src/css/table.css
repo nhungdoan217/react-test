@@ -1,9 +1,7 @@
-.participant-row-container {
+.participant-row-container,
+.header-row-container {
 	display: flex;
 	height: 72px;
-    vertical-align: middle;
-    line-height: 72px;
-    justify-content: space-between;
     border-bottom: 1px solid #ddd;
     box-sizing: border-box;
     font-size: 16px;
@@ -15,7 +13,8 @@
 .participant-edit,
 .participant-delete,
 .participant-cancel,
-.participant-save {
+.participant-save,
+.fas {
 	cursor: pointer;
 }
 
@@ -33,6 +32,34 @@
     padding: 0 16px;
     color: white;
     background: #07f;
+}
+
+.name,
+.email,
+.phone {
+    margin-right: 16px;
+}
+
+.name {
+    width: calc(20% - 16px);
+}
+
+.email {
+    width: calc(30% - 16px);
+}
+
+.phone {
+    width: calc(30% - 16px);
+}
+
+.action-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%
+}
+
+.action-button-container > div {
+    margin-right: 24px
 }
 
 * {
