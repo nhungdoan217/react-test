@@ -39,7 +39,7 @@ class Table extends Component
 
 	sortParticipants = (direction) => {
 		let sortedParticipants = this.state.sortedParticipants;
-		if (direction === 'asc') {
+		if (direction === 'desc') {
 			sortedParticipants = this.state.participants.sort((a, b) => {return a.name > b.name ? 1 : -1});	
 		} else {
 			sortedParticipants = this.state.participants.sort((a, b) => {return a.name < b.name ? 1 : -1});
