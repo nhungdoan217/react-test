@@ -1,4 +1,4 @@
-[
+export default [
     {
         "id": "5c30ec0e73ffaa5934b9fb99",
         "name": "Dunn Wiggins",
