@@ -37,17 +37,24 @@ class Table extends Component
 		})
 	};
 
-	sortParticipants = (direction) => {
+	sortParticipants = (direction, dataToSort) => {
 		let sortedParticipants = this.state.sortedParticipants;
 		if (direction === 'desc') {
-			sortedParticipants = this.state.participants.sort((a, b) => {return a.name > b.name ? 1 : -1});	
+			sortedParticipants = this.state.participants.sort((a, b) => {return a[dataToSort] > b[dataToSort] ? 1 : -1});	
 		} else {
-			sortedParticipants = this.state.participants.sort((a, b) => {return a.name < b.name ? 1 : -1});
+			sortedParticipants = this.state.participants.sort((a, b) => {return a[dataToSort] < b[dataToSort] ? 1 : -1});
 		}
 
 		this.setState({
 			participants: sortedParticipants
 		})
+	}
+
+	addNewParticipant = (newParticipant) => {
+		let newParticipants = this.state.participants;
+		newParticipants.push(newParticipant);
+
+		this.setState({participants: newParticipants});
 	}
 
 	render() {
@@ -58,7 +65,7 @@ class Table extends Component
 					<div className="software">Software</div>
 				</nav>
 				<h1>List of participants</h1>
-				<AddNewParticipant />
+				<AddNewParticipant addNewParticipant={this.addNewParticipant}/>
 				<TableHeader sortParticipants={this.sortParticipants}/>
 				{this.renderParticipantList()}
 			</React.Fragment>

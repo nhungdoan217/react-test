@@ -4,32 +4,55 @@ import React, { Component } from 'react';
 class TableHeader extends Component 
 {
 	state = {
-		sortDirection: 'asc'
+		sortDirection: 'asc',
+		sortObj: {
+			name: 'asc',
+			email: 'asc',
+			phone: 'asc'
+		}
 	}
 
-	sortParticipants = () => {
-		let sortDirection = this.state.sortDirection;
+	sortParticipants = (dataToSort) => {
+		let sortDirection = this.state.sortObj;
 
-		if (sortDirection === 'asc') {
+		if (sortDirection[dataToSort] === 'asc') {
 			this.setState({
-				sortDirection: 'desc'
+				sortObj: {[dataToSort]: 'desc'}
 			});
 		} else {
 			this.setState({
-				sortDirection: 'asc'
+				sortObj: {[dataToSort]: 'asc'}
 			});
 		}
 
-		this.props.sortParticipants(this.state.sortDirection);
+		this.props.sortParticipants(this.state.sortDirection, dataToSort);
 	}	
 
+	arrowClass = (sortDirection) => {
+		return sortDirection === 'desc' ? 'fa-arrow-down' : 'fa-arrow-up';
+	}
+
 	render() {
-		let arrowClass = this.state.sortDirection === 'desc' ? 'fa-arrow-down' : 'fa-arrow-up';
 		return (
 			<div className="header-row-container">
-				<div className="header-row name" onClick={this.sortParticipants}>Name <i className={`fas ${arrowClass}`}></i></div>
-				<div className="header-row email">E-mail address</div>
-				<div className="header-row phone">Phone number</div>
+				<div className="header-row name" 
+					onClick={() => {this.sortParticipants('name')}}
+				>
+					Name 
+					<i className={`fas ${this.arrowClass(this.state.sortObj.name)}`}></i>
+				</div>
+				<div className="header-row email" 
+					onClick={() => {this.sortParticipants('email')}}
+				>
+					E-mail address 
+					<i className={`fas ${this.arrowClass(this.state.sortObj.email)}`}></i>
+				</div>
+				<div className="header-row phone" 
+					onClick={() => {this.sortParticipants('phone')}}
+				>
+					Phone number 
+					<i className={`fas ${this.arrowClass(this.state.sortObj.phone)}`}></i>
+				</div>
 			</div>
 		)
 	}
